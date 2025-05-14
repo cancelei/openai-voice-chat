@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenAI Voice Chat - Feature Comparison</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <div class="container mx-auto py-6 px-4">
+    <header class="text-center mb-6">
+      <h1 class="text-3xl font-bold text-gray-800">OpenAI Voice Chat</h1>
+      <p class="text-gray-600 mt-2">Feature Comparison</p>
+    </header>
+    
+    <nav class="nav-container">
+      <a href="/" class="nav-link">
+        <svg class="nav-link-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+        </svg>
+        Socket.IO
+      </a>
+      <a href="/websocket" class="nav-link">
+        <svg class="nav-link-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+        WebSocket
+        <span class="feature-badge">Faster</span>
+      </a>
+      <a href="/continuous" class="nav-link">
+        <svg class="nav-link-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+        </svg>
+        Continuous
+        <span class="feature-badge">Hands-free</span>
+      </a>
+      <a href="/comparison" class="nav-link active">
+        <svg class="nav-link-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+        Compare
+      </a>
+    </nav>
+    
+    <div class="max-w-4xl mx-auto">
+      <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+        <h2 class="text-xl font-bold text-gray-800 mb-4">Implementation Comparison</h2>
+        <p class="text-gray-600 mb-6">This project demonstrates three different implementations of OpenAI's voice APIs, each with its own advantages.</p>
+        
+        <div class="overflow-x-auto">
+          <table class="min-w-full bg-white">
+            <thead>
+              <tr class="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
+                <th class="py-3 px-6 text-left">Feature</th>
+                <th class="py-3 px-6 text-center">Socket.IO</th>
+                <th class="py-3 px-6 text-center">WebSocket</th>
+                <th class="py-3 px-6 text-center">Continuous</th>
+              </tr>
+            </thead>
+            <tbody class="text-gray-600 text-sm">
+              <tr class="border-b border-gray-200 hover:bg-gray-50">
+                <td class="py-3 px-6 text-left">Implementation</td>
+                <td class="py-3 px-6 text-center">Uses Socket.IO library</td>
+                <td class="py-3 px-6 text-center">Uses native WebSocket API</td>
+                <td class="py-3 px-6 text-center">Uses native WebSocket API</td>
+              </tr>
+              <tr class="border-b border-gray-200 hover:bg-gray-50">
+                <td class="py-3 px-6 text-left">Interaction</td>
+                <td class="py-3 px-6 text-center">Press-to-talk</td>
+                <td class="py-3 px-6 text-center">Press-to-talk</td>
+                <td class="py-3 px-6 text-center">Hands-free conversation</td>
+              </tr>
+              <tr class="border-b border-gray-200 hover:bg-gray-50">
+                <td class="py-3 px-6 text-left">Performance</td>
+                <td class="py-3 px-6 text-center">Good</td>
+                <td class="py-3 px-6 text-center">Better</td>
+                <td class="py-3 px-6 text-center">Best for long sessions</td>
+              </tr>
+              <tr class="border-b border-gray-200 hover:bg-gray-50">
+                <td class="py-3 px-6 text-left">OpenAI APIs Used</td>
+                <td class="py-3 px-6 text-center">Whisper, GPT-4o, TTS</td>
+                <td class="py-3 px-6 text-center">Whisper, GPT-4o, TTS</td>
+                <td class="py-3 px-6 text-center">Whisper, GPT-4o, TTS</td>
+              </tr>
+              <tr class="border-b border-gray-200 hover:bg-gray-50">
+                <td class="py-3 px-6 text-left">Streaming</td>
+                <td class="py-3 px-6 text-center">Response text only</td>
+                <td class="py-3 px-6 text-center">Response text only</td>
+                <td class="py-3 px-6 text-center">Full conversation</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white rounded-lg shadow-lg p-6">
+          <div class="flex items-center mb-4">
+            <svg class="w-8 h-8 text-blue-500 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+            </svg>
+            <h3 class="text-lg font-semibold">Socket.IO Version</h3>
+          </div>
+          <p class="text-gray-600 mb-4">The Socket.IO implementation provides a robust connection with automatic reconnection capabilities and wide browser support.</p>
+          <a href="/" class="block text-center py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white rounded transition-colors">Try Socket.IO Version</a>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-lg p-6">
+          <div class="flex items-center mb-4">
+            <svg class="w-8 h-8 text-blue-500 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+            <h3 class="text-lg font-semibold">WebSocket Version</h3>
+          </div>
+          <p class="text-gray-600 mb-4">The WebSocket implementation offers lower latency and overhead, making it faster for real-time voice communication.</p>
+          <a href="/websocket" class="block text-center py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white rounded transition-colors">Try WebSocket Version</a>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-lg p-6">
+          <div class="flex items-center mb-4">
+            <svg class="w-8 h-8 text-blue-500 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+            </svg>
+            <h3 class="text-lg font-semibold">Continuous Version</h3>
+          </div>
+          <p class="text-gray-600 mb-4">The Continuous implementation provides a hands-free experience, automatically detecting speech and managing the conversation flow.</p>
+          <a href="/continuous" class="block text-center py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white rounded transition-colors">Try Continuous Version</a>
+        </div>
+      </div>
+    </div>
+    
+    <footer class="mt-8 text-center text-sm text-gray-500">
+      <p>Powered by OpenAI's Voice API</p>
+      <p class="mt-1">Using Whisper for STT, GPT-4o for chat, and TTS for speech</p>
+    </footer>
+  </div>
+</body>
+</html> 

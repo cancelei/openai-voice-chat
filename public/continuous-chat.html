@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenAI Continuous Voice Chat</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <div class="container mx-auto py-6 px-4">
+    <header class="text-center mb-6">
+      <h1 class="text-3xl font-bold text-gray-800">OpenAI Continuous Voice Chat</h1>
+      <p class="text-gray-600 mt-2">Hands-free real-time conversation</p>
+      <!-- New Conversation button will be added here via JavaScript -->
+    </header>
+    
+    <nav class="nav-container">
+      <a href="/" class="nav-link">
+        <svg class="nav-link-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+        </svg>
+        Socket.IO
+      </a>
+      <a href="/websocket" class="nav-link">
+        <svg class="nav-link-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+        WebSocket
+        <span class="feature-badge">Faster</span>
+      </a>
+      <a href="/continuous" class="nav-link active">
+        <svg class="nav-link-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+        </svg>
+        Continuous
+        <span class="feature-badge">Hands-free</span>
+      </a>
+      <a href="/comparison" class="nav-link">
+        <svg class="nav-link-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+        Compare
+      </a>
+    </nav>
+    
+    <div class="bg-white rounded-lg shadow-lg p-6 max-w-lg mx-auto">
+      <div id="conversation-container" class="mb-6 h-72 overflow-y-auto p-4 border border-gray-300 rounded-lg">
+        <div class="text-gray-500 text-center italic">Initializing... Please wait</div>
+      </div>
+      
+      <div class="flex justify-center mb-4">
+        <div id="status" class="text-sm text-gray-600"></div>
+      </div>
+      
+      <div class="flex justify-center space-x-4">
+        <button id="startCallButton" class="bg-green-500 hover:bg-green-600 text-white font-medium py-3 px-6 rounded-full flex items-center transition-all" disabled>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+          </svg>
+          <span>Start Call</span>
+        </button>
+        
+        <button id="endCallButton" class="bg-red-500 hover:bg-red-600 text-white font-medium py-3 px-6 rounded-full flex items-center transition-all hidden">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8l2-2m0 0l2-2m-2 2l-2-2m-4 4l2 2m-6 0l2 2m2-2l2-2" />
+          </svg>
+          <span>End Call</span>
+        </button>
+      </div>
+      
+      <div class="mt-6">
+        <div class="flex items-center justify-center space-x-2 mb-3">
+          <span class="text-sm text-gray-600">Audio Input Level:</span>
+          <div id="audioLevel" class="w-32 h-3 bg-gray-200 rounded-full overflow-hidden">
+            <div id="audioLevelBar" class="h-full bg-green-500 transition-all" style="width: 0%;"></div>
+          </div>
+        </div>
+        
+        <div id="callStatus" class="text-center text-sm font-semibold text-gray-700 hidden">
+          <div class="inline-flex items-center">
+            <span class="pulse-dot mr-2"></span>
+            <span id="callStatusText">Call in progress</span>
+          </div>
+        </div>
+        
+        <p class="text-center text-xs text-gray-500 mt-2">
+          Just press "Start Call" and speak naturally. AI will respond automatically.
+        </p>
+      </div>
+    </div>
+    
+    <footer class="mt-8 text-center text-sm text-gray-500">
+      <p>Powered by OpenAI's Voice API</p>
+      <p class="mt-1">Using WebSocket-based continuous conversation</p>
+    </footer>
+  </div>
+  
+  <script src="continuous-chat.js"></script>
+</body>
+</html> 

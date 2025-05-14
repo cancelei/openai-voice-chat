@@ -7,14 +7,10 @@ RUN mkdir -p /app && chown -R node:node /app
 
 # Copy package files and install dependencies
 COPY --chown=node:node package*.json ./
-RUN npm install --production
+RUN npm install --omit=dev
 
 # Copy app source
 COPY --chown=node:node . .
-
-# Set environment variables (will be overridden by CapRover environment variables)
-ENV PORT=3000
-ENV NODE_ENV=production
 
 # Use non-root user
 USER node

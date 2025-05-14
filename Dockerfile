@@ -7,7 +7,7 @@ RUN mkdir -p /app && chown -R node:node /app
 
 # Copy package files and install dependencies
 COPY --chown=node:node package*.json ./
-RUN npm ci --only=production
+RUN npm install --production
 
 # Copy app source
 COPY --chown=node:node . .
